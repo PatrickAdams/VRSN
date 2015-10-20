@@ -34,6 +34,15 @@
                                     <navigationItem title="VRSN" id="B2J-rH-JCZ">
                                         <barButtonItem key="leftBarButtonItem" title="Clear" id="RxO-4Q-RtD">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="clearCompletedItems" destination="vc4-08-lSy" id="ZKQ-Om-BNw"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Lists" id="VgC-Aa-F93">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <segue destination="B2K-Du-0Dn" kind="modal" id="sJJ-AQ-1HL"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -56,7 +65,7 @@
                                 <rect key="frame" x="0.0" y="115" width="320" height="453"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="cJ6-eS-EdQ">
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="cJ6-eS-EdQ" customClass="ListItemCell" customModule="VRSN" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cJ6-eS-EdQ" id="mmF-hx-gzd">
@@ -80,7 +89,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="todayItemTitleLabel" destination="Uva-AL-JuF" id="VCw-Q5-YRG"/>
+                                            <outlet property="listItemTitleLabel" destination="Uva-AL-JuF" id="2pU-yP-Vtj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -100,6 +109,9 @@
                                     <color key="titleColor" red="0.55966745350000002" green="0.87878787879999998" blue="0.01013652672" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.55966745350000002" green="0.87878787879999998" blue="0.01013652672" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="plusButtonTapped" destination="vc4-08-lSy" eventType="touchUpInside" id="Dh9-D0-i3f"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -118,10 +130,140 @@
                             <constraint firstItem="Ecq-ZY-WLy" firstAttribute="leading" secondItem="bVB-qO-FHx" secondAttribute="leading" id="zHJ-Ra-weW"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="clearButton" destination="RxO-4Q-RtD" id="MK5-2W-K7H"/>
+                        <outlet property="listsButton" destination="VgC-Aa-F93" id="fMf-m1-L03"/>
+                        <outlet property="navBar" destination="Ecq-ZY-WLy" id="yMd-Ri-d8E"/>
+                        <outlet property="tableView" destination="mik-fs-D5k" id="DuI-ah-DcF"/>
+                        <outlet property="textField" destination="LbF-RL-S2b" id="fG7-P5-P9u"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lEZ-TT-Yu7" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="162" y="406"/>
+        </scene>
+        <!--List Organizer View Controller-->
+        <scene sceneID="drV-ct-9Mn">
+            <objects>
+                <viewController storyboardIdentifier="ListOrganizerViewController" id="B2K-Du-0Dn" customClass="ListOrganizerViewController" customModule="VRSN" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rln-JG-X4u"/>
+                        <viewControllerLayoutGuide type="bottom" id="vGq-yC-lEJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HoY-i4-ztM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loX-mz-W14">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <color key="barTintColor" red="0.56820992466789144" green="0.61518099674380022" blue="0.87878787879999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="VRSN" id="tqx-3e-KeH">
+                                        <barButtonItem key="rightBarButtonItem" title="Close" id="z8L-3f-vMj">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="dismissView" destination="B2K-Du-0Dn" id="2wO-h5-EMu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="B2K-Du-0Dn" id="jw0-9U-WS6"/>
+                                </connections>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add New List" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jy9-Rx-FdP">
+                                <rect key="frame" x="15" y="75" width="256" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dK0-WB-Bqj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="B2K-Du-0Dn" id="IiN-42-qDV"/>
+                                </connections>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0iI-CH-26D">
+                                <rect key="frame" x="0.0" y="115" width="320" height="453"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Bcv-bU-iXP" customClass="ListItemCell" customModule="VRSN" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bcv-bU-iXP" id="NaX-5O-5TN">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kge-0I-rvQ">
+                                                    <rect key="frame" x="15" y="11" width="269" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="269" id="VMq-gy-ugJ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Kge-0I-rvQ" firstAttribute="top" secondItem="NaX-5O-5TN" secondAttribute="top" constant="11" id="4Kn-wY-5cQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="Kge-0I-rvQ" secondAttribute="bottom" constant="11" id="c5Z-wZ-Jv4"/>
+                                                <constraint firstItem="Kge-0I-rvQ" firstAttribute="leading" secondItem="NaX-5O-5TN" secondAttribute="leading" constant="15" id="tHH-nH-MyQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="listItemTitleLabel" destination="Kge-0I-rvQ" id="Snz-c6-Ndf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="B2K-Du-0Dn" id="AvM-eD-KMn"/>
+                                    <outlet property="delegate" destination="B2K-Du-0Dn" id="gA6-WU-RYb"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0k-Ye-4Qz">
+                                <rect key="frame" x="279" y="76" width="36" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="SVh-hC-z1m"/>
+                                    <constraint firstAttribute="height" constant="30" id="V21-Oy-M58"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" red="0.56820992469999998" green="0.61518099670000004" blue="0.87878787879999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.56820992469999998" green="0.61518099670000004" blue="0.87878787879999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="plusButtonTapped" destination="B2K-Du-0Dn" eventType="touchUpInside" id="iHI-kd-cbJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Jy9-Rx-FdP" firstAttribute="top" secondItem="loX-mz-W14" secondAttribute="bottom" constant="11" id="0Qi-Wn-tR9"/>
+                            <constraint firstItem="loX-mz-W14" firstAttribute="top" secondItem="rln-JG-X4u" secondAttribute="bottom" id="3Lx-Dd-JhN"/>
+                            <constraint firstAttribute="trailing" secondItem="loX-mz-W14" secondAttribute="trailing" id="7SP-3A-p0r"/>
+                            <constraint firstItem="r0k-Ye-4Qz" firstAttribute="leading" secondItem="Jy9-Rx-FdP" secondAttribute="trailing" constant="8" id="8Fr-0c-hTw"/>
+                            <constraint firstItem="vGq-yC-lEJ" firstAttribute="top" secondItem="0iI-CH-26D" secondAttribute="bottom" id="KOG-dp-jJc"/>
+                            <constraint firstItem="r0k-Ye-4Qz" firstAttribute="top" secondItem="loX-mz-W14" secondAttribute="bottom" constant="12" id="LeZ-jD-XaU"/>
+                            <constraint firstItem="0iI-CH-26D" firstAttribute="leading" secondItem="HoY-i4-ztM" secondAttribute="leading" id="OKs-VO-QVg"/>
+                            <constraint firstItem="Jy9-Rx-FdP" firstAttribute="leading" secondItem="HoY-i4-ztM" secondAttribute="leading" constant="15" id="ZYb-8J-jzM"/>
+                            <constraint firstAttribute="trailing" secondItem="r0k-Ye-4Qz" secondAttribute="trailing" constant="5" id="idm-O3-ktX"/>
+                            <constraint firstAttribute="trailing" secondItem="0iI-CH-26D" secondAttribute="trailing" id="mO7-FH-5yn"/>
+                            <constraint firstItem="0iI-CH-26D" firstAttribute="top" secondItem="Jy9-Rx-FdP" secondAttribute="bottom" id="n8G-KM-1BQ"/>
+                            <constraint firstItem="loX-mz-W14" firstAttribute="leading" secondItem="HoY-i4-ztM" secondAttribute="leading" id="omI-cT-1X9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="z8L-3f-vMj" id="3j4-Gz-JAu"/>
+                        <outlet property="navBar" destination="loX-mz-W14" id="yG6-TL-2lq"/>
+                        <outlet property="tableView" destination="0iI-CH-26D" id="Vdb-k9-Uq6"/>
+                        <outlet property="textField" destination="Jy9-Rx-FdP" id="wBz-aI-4lT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zLg-nL-6Ep" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="510" y="406"/>
         </scene>
     </scenes>
 </document>

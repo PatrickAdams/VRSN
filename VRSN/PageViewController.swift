@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PageViewController: UIPageViewController {
+    
+    let realm = try! Realm()
 
     var listViewControllers = [UIViewController]()
     var currentIndex = 0
@@ -23,8 +26,32 @@ class PageViewController: UIPageViewController {
     }
     
     func createViewControllers() {
-        let todoViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
-        listViewControllers.append(todoViewController)
+        let lists = realm.objects(List)
+        if lists.count > 0 {
+            for list in lists {
+                let newListViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
+                newListViewController.listTitle = list.title
+                listViewControllers.append(newListViewController)
+            }
+        } else {
+            let list = List()
+            list.title = "First List"
+            list.color = "orange"
+            
+            let realm = try! Realm()
+            
+            try! realm.write {
+                realm.add(list)
+            }
+            let lists = realm.objects(List)
+            for list in lists {
+                let newListViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
+                newListViewController.listTitle = list.title
+                newListViewController.listColor = ColorDictionary.getColorFromString(list.color)
+                listViewControllers.append(newListViewController)
+            }
+
+        }
     }
 }
 
