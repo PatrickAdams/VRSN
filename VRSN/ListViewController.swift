@@ -13,21 +13,22 @@ class ListViewController: UIViewController {
 
     let realm = try! Realm()
     
-    var listTitle: String!
-    var listColor: UIColor!
+    var list: List!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var clearButton: UIBarButtonItem!
     @IBOutlet weak var listsButton: UIBarButtonItem!
+    @IBOutlet weak var plusButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         styleNavBar()
         setupTableView()
-        navBar.topItem?.title = listTitle
-        navBar.tintColor = listColor
+        navBar.topItem?.title = list.title
+        navBar.barTintColor = ColorDictionary.getColorFromString(list.color)
+        plusButton.setTitleColor(ColorDictionary.getColorFromString(list.color), forState: UIControlState.Normal)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -51,13 +52,14 @@ class ListViewController: UIViewController {
         if textField.text != "" {
             let listItem = ListItem()
             listItem.title = textField.text
-            
+            listItem.listName = list.title
             let realm = try! Realm()
             
             try! realm.write {
                 realm.add(listItem)
             }
         }
+        
         textField.text = ""
         tableView.reloadData()
     }
@@ -75,7 +77,7 @@ class ListViewController: UIViewController {
     }
     
     @IBAction func clearCompletedItems() {
-        let predicate = NSPredicate(format: "finished == true")
+        let predicate = NSPredicate(format: String(format: "finished == true AND listName == '%@'", list.title))
         let completedItems = realm.objects(ListItem).filter(predicate)
         
         try! realm.write {
@@ -108,12 +110,14 @@ extension ListViewController: UITextFieldDelegate {
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return realm.objects(ListItem).count
+        let predicate = NSPredicate(format:"listName == %@", list.title)
+        return realm.objects(ListItem).filter(predicate).count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! ListItemCell
-        let item = realm.objects(ListItem)[indexPath.row]
+        let predicate = NSPredicate(format:"listName == %@", list.title)
+        let item = realm.objects(ListItem).filter(predicate)[indexPath.row]
         
         cell.listItemTitleLabel?.text = item.title
         cell.listItem = item
@@ -128,7 +132,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let item = realm.objects(ListItem)[indexPath.row]
+        let predicate = NSPredicate(format: "listName == %@", list.title)
+        let item = realm.objects(ListItem).filter(predicate)[indexPath.row]
         if item.finished != true {
             markItemAsComplete(item)
         } else {

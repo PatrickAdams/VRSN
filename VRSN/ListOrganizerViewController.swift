@@ -12,6 +12,7 @@ import RealmSwift
 class ListOrganizerViewController: UIViewController {
 
     let realm = try! Realm()
+    let colorOptionsDict = ["Blue", "Green", "Pink", "Purple", "Red", "Orange", "Yellow"]
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
@@ -44,17 +45,28 @@ class ListOrganizerViewController: UIViewController {
         if textField.text != "" {
             let list = List()
             list.title = textField.text
-            //Pick a random string of color name (orange, blue, green, yellow, purple, pink)
-            list.color = "orange"
-            
-            let realm = try! Realm()
-            
-            try! realm.write {
-                realm.add(list)
-            }
+            showColorOptionsForList(list)
         }
-        textField.text = ""
-        tableView.reloadData()
+    }
+    
+    func showColorOptionsForList(list: List) {
+        
+        let actionSheet = UIAlertController(title: "Choose a color", message: "", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        for color in colorOptionsDict {
+            actionSheet.addAction(UIAlertAction(title: color, style: UIAlertActionStyle.Default, handler: { (alertAction: UIAlertAction) -> Void in
+                list.color = color
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(list)
+                }
+                self.textField.text = ""
+                self.tableView.reloadData()
+            }))
+        }
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     @IBAction func plusButtonTapped() {
@@ -92,11 +104,28 @@ extension ListOrganizerViewController: UITableViewDelegate, UITableViewDataSourc
         let item = realm.objects(List)[indexPath.row]
         
         cell.listItemTitleLabel?.text = item.title
+        cell.listItemTitleLabel.textColor = ColorDictionary.getColorFromString(item.color)
+        
+        cell.list = item
         
         return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true;
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let item = realm.objects(List)[indexPath.row]
+            try! realm.write {
+                self.realm.delete(item)
+                self.tableView.reloadData()
+            }
+        }
     }
 }

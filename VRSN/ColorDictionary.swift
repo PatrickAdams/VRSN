@@ -10,13 +10,25 @@ import UIKit
 
 class ColorDictionary: NSObject {
     
+    let colorOptionsDict = ["Blue", "Green", "Pink", "Purple", "Red", "Orange", "Yellow"]
+    
     class func getColorFromString(string: String!) -> UIColor {
-        if string == "orange" {
-            return UIColor(red:1, green:0.696, blue:0.063, alpha:1)
-        } else if string == "green" {
-            return UIColor(red:0.563, green:0.856, blue:0.49, alpha:1)
+        if string == "Blue" {
+            return UIColor(red:0, green:0.695, blue:0.877, alpha:1)
+        } else if string == "Green" {
+            return UIColor(red:0.526, green:0.877, blue:0, alpha:1)
+        } else if string == "Pink" {
+            return UIColor(red:1, green:0.663, blue:0.932, alpha:1)
+        } else if string == "Purple" {
+            return UIColor(red:0.75, green:0.494, blue:0.843, alpha:1)
+        } else if string == "Red" {
+            return UIColor(red:1, green:0.359, blue:0.359, alpha:1)
+        } else if string == "Orange" {
+            return UIColor(red:1, green:0.623, blue:0.315, alpha:1)
+        } else if string == "Yellow" {
+            return UIColor(red:0.96, green:0.936, blue:0, alpha:1)
         } else {
-            return UIColor(red:1, green:1, blue:1, alpha:1)
+            return UIColor.grayColor()
         }
     }
 }

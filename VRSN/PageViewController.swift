@@ -20,7 +20,7 @@ class PageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
-        delegate = self
+        delegate = self        
         createViewControllers()
         self.setViewControllers([listViewControllers[0]], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
     }
@@ -30,13 +30,13 @@ class PageViewController: UIPageViewController {
         if lists.count > 0 {
             for list in lists {
                 let newListViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
-                newListViewController.listTitle = list.title
+                newListViewController.list = list
                 listViewControllers.append(newListViewController)
             }
         } else {
             let list = List()
             list.title = "First List"
-            list.color = "orange"
+            list.color = "Green"
             
             let realm = try! Realm()
             
@@ -46,8 +46,7 @@ class PageViewController: UIPageViewController {
             let lists = realm.objects(List)
             for list in lists {
                 let newListViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
-                newListViewController.listTitle = list.title
-                newListViewController.listColor = ColorDictionary.getColorFromString(list.color)
+                newListViewController.list = list
                 listViewControllers.append(newListViewController)
             }
 

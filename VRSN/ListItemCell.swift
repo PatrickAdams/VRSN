@@ -11,7 +11,8 @@ import RealmSwift
 
 class ListItemCell: UITableViewCell {
     
-    var listItem: ListItem!
+    var listItem: ListItem?
+    var list: List?
     let realm = try! Realm()
     @IBOutlet weak var listItemTitleLabel: UILabel!
 }

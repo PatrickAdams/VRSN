@@ -91,19 +91,35 @@
 			isa = PBXGroup;
 			children = (
 				F762B6FD1BD5BA5200DA9D24 /* AppDelegate.swift */,
+				F7B4A8351BD6EE1A00B82A88 /* View Controllers */,
+				F7B4A8361BD6EE2700B82A88 /* Models */,
+				F762B7011BD5BA5200DA9D24 /* Main.storyboard */,
+				F762B7061BD5BA5200DA9D24 /* LaunchScreen.storyboard */,
+				F762B7041BD5BA5200DA9D24 /* Assets.xcassets */,
+				F762B7091BD5BA5200DA9D24 /* Info.plist */,
+			);
+			path = VRSN;
+			sourceTree = "<group>";
+		};
+		F7B4A8351BD6EE1A00B82A88 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				F7988E351BD5C326005D9B51 /* PageViewController.swift */,
 				F7988E371BD5C35A005D9B51 /* ListViewController.swift */,
 				F7988E3F1BD5F2C2005D9B51 /* ListOrganizerViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		F7B4A8361BD6EE2700B82A88 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				F7988E391BD5E862005D9B51 /* ListItem.swift */,
 				F7988E3B1BD5E8DF005D9B51 /* ListItemCell.swift */,
 				F7988E3D1BD5F159005D9B51 /* List.swift */,
 				F7988E411BD5F712005D9B51 /* ColorDictionary.swift */,
-				F762B7011BD5BA5200DA9D24 /* Main.storyboard */,
-				F762B7041BD5BA5200DA9D24 /* Assets.xcassets */,
-				F762B7061BD5BA5200DA9D24 /* LaunchScreen.storyboard */,
-				F762B7091BD5BA5200DA9D24 /* Info.plist */,
 			);
-			path = VRSN;
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

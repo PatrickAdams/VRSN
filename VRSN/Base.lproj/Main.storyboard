@@ -134,6 +134,7 @@
                         <outlet property="clearButton" destination="RxO-4Q-RtD" id="MK5-2W-K7H"/>
                         <outlet property="listsButton" destination="VgC-Aa-F93" id="fMf-m1-L03"/>
                         <outlet property="navBar" destination="Ecq-ZY-WLy" id="yMd-Ri-d8E"/>
+                        <outlet property="plusButton" destination="sDz-Ih-yoy" id="05x-1o-Xjh"/>
                         <outlet property="tableView" destination="mik-fs-D5k" id="DuI-ah-DcF"/>
                         <outlet property="textField" destination="LbF-RL-S2b" id="fG7-P5-P9u"/>
                     </connections>

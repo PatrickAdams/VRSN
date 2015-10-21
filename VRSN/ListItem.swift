@@ -14,5 +14,5 @@ class ListItem: Object {
     dynamic var title: String!
     dynamic var finished = false
     dynamic var important = false
-    dynamic var listName: String = ""
+    dynamic var listName: String!
 }
