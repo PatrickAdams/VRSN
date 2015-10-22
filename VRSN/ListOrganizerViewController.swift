@@ -12,7 +12,7 @@ import RealmSwift
 class ListOrganizerViewController: UIViewController {
 
     let realm = try! Realm()
-    let colorOptionsDict = ["Blue", "Green", "Pink", "Purple", "Red", "Orange", "Yellow"]
+    let colorOptionsDict = ["Blue", "Green", "Pink", "Purple", "Red", "Orange"]
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textField: UITextField!
@@ -45,6 +45,7 @@ class ListOrganizerViewController: UIViewController {
         if textField.text != "" {
             let list = List()
             list.title = textField.text
+            list.dateCreated = NSDate()
             showColorOptionsForList(list)
         }
     }
@@ -62,6 +63,7 @@ class ListOrganizerViewController: UIViewController {
                 }
                 self.textField.text = ""
                 self.tableView.reloadData()
+                NSNotificationCenter.defaultCenter().postNotificationName("refreshPageView", object: self)
             }))
         }
         
@@ -101,7 +103,7 @@ extension ListOrganizerViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! ListItemCell
-        let item = realm.objects(List)[indexPath.row]
+        let item = realm.objects(List).sorted("dateCreated")[indexPath.row]
         
         cell.listItemTitleLabel?.text = item.title
         cell.listItemTitleLabel.textColor = ColorDictionary.getColorFromString(item.color)
@@ -116,15 +118,20 @@ extension ListOrganizerViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true;
+        if realm.objects(List).count == 1 {
+            return false;
+        } else {
+           return true;
+        }
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
-            let item = realm.objects(List)[indexPath.row]
+            let item = realm.objects(List).sorted("dateCreated")[indexPath.row]
             try! realm.write {
                 self.realm.delete(item)
                 self.tableView.reloadData()
+                NSNotificationCenter.defaultCenter().postNotificationName("refreshPageView", object: self)
             }
         }
     }

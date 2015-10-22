@@ -22,11 +22,22 @@ class PageViewController: UIPageViewController {
         dataSource = self
         delegate = self        
         createViewControllers()
-        self.setViewControllers([listViewControllers[0]], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
+        setViewControllers([listViewControllers[0]], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshViewControllers", name: "refreshPageView", object: nil)
+    }
+    
+    func refreshViewControllers() {
+        listViewControllers = [UIViewController]()
+        createViewControllers()
+        setViewControllers([listViewControllers[0]], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     func createViewControllers() {
-        let lists = realm.objects(List)
+        let lists = realm.objects(List).sorted("dateCreated")
         if lists.count > 0 {
             for list in lists {
                 let newListViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ListViewController") as! ListViewController
@@ -35,8 +46,8 @@ class PageViewController: UIPageViewController {
             }
         } else {
             let list = List()
-            list.title = "First List"
-            list.color = "Green"
+            list.title = "To Do"
+            list.color = "Blue"
             
             let realm = try! Realm()
             

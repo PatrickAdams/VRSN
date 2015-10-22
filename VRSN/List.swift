@@ -13,4 +13,5 @@ class List: Object {
     
     dynamic var title: String!
     dynamic var color: String!
+    dynamic var dateCreated: NSDate!
 }
