@@ -128,6 +128,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.accessoryType = UITableViewCellAccessoryType.None
         }
         
+        cell.updateLabel()
+        
         return cell
     }
     
