@@ -48,6 +48,7 @@ class PageViewController: UIPageViewController {
             let list = List()
             list.title = "To Do"
             list.color = "Blue"
+            list.dateCreated = NSDate()
             
             let realm = try! Realm()
             
