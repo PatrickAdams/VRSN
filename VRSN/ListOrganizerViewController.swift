@@ -71,6 +71,33 @@ class ListOrganizerViewController: UIViewController {
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     
+    func showAlertForList(list: List) {
+        
+        let alertController = UIAlertController(title: "Edit Title", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.text = list.title
+        }
+        
+        alertController.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            try! self.realm.write {
+                let predicate = NSPredicate(format:"listName == %@", list.title)
+                let items = self.realm.objects(ListItem).filter(predicate)
+                for item in items {
+                    item.listName = alertController.textFields![0].text
+                }
+                list.title = alertController.textFields![0].text
+                
+                self.tableView.reloadData()
+                NSNotificationCenter.defaultCenter().postNotificationName("refreshPageView", object: self)
+            }
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func plusButtonTapped() {
         addItemToList(textField.text!)
     }
@@ -111,6 +138,11 @@ extension ListOrganizerViewController: UITableViewDelegate, UITableViewDataSourc
         cell.list = item
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let list = realm.objects(List).sorted("dateCreated")[indexPath.row]
+        showAlertForList(list)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

@@ -12,13 +12,13 @@
 		F762B7031BD5BA5200DA9D24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F762B7011BD5BA5200DA9D24 /* Main.storyboard */; };
 		F762B7051BD5BA5200DA9D24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F762B7041BD5BA5200DA9D24 /* Assets.xcassets */; };
 		F762B7081BD5BA5200DA9D24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F762B7061BD5BA5200DA9D24 /* LaunchScreen.storyboard */; };
-		F7988E361BD5C326005D9B51 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E351BD5C326005D9B51 /* PageViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F7988E381BD5C35A005D9B51 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E371BD5C35A005D9B51 /* ListViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F7988E3A1BD5E862005D9B51 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E391BD5E862005D9B51 /* ListItem.swift */; settings = {ASSET_TAGS = (); }; };
-		F7988E3C1BD5E8DF005D9B51 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E3B1BD5E8DF005D9B51 /* ListItemCell.swift */; settings = {ASSET_TAGS = (); }; };
-		F7988E3E1BD5F159005D9B51 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E3D1BD5F159005D9B51 /* List.swift */; settings = {ASSET_TAGS = (); }; };
-		F7988E401BD5F2C2005D9B51 /* ListOrganizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E3F1BD5F2C2005D9B51 /* ListOrganizerViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		F7988E421BD5F712005D9B51 /* ColorDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E411BD5F712005D9B51 /* ColorDictionary.swift */; settings = {ASSET_TAGS = (); }; };
+		F7988E361BD5C326005D9B51 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E351BD5C326005D9B51 /* PageViewController.swift */; };
+		F7988E381BD5C35A005D9B51 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E371BD5C35A005D9B51 /* ListViewController.swift */; };
+		F7988E3A1BD5E862005D9B51 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E391BD5E862005D9B51 /* ListItem.swift */; };
+		F7988E3C1BD5E8DF005D9B51 /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E3B1BD5E8DF005D9B51 /* ListItemCell.swift */; };
+		F7988E3E1BD5F159005D9B51 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E3D1BD5F159005D9B51 /* List.swift */; };
+		F7988E401BD5F2C2005D9B51 /* ListOrganizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E3F1BD5F2C2005D9B51 /* ListOrganizerViewController.swift */; };
+		F7988E421BD5F712005D9B51 /* ColorDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7988E411BD5F712005D9B51 /* ColorDictionary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +156,7 @@
 				TargetAttributes = {
 					F762B6F91BD5BA5200DA9D24 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = FYS5RKBMKU;
 					};
 				};
 			};
@@ -362,6 +363,7 @@
 			baseConfigurationReference = FFEDFC6940621319C9584EED /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = VRSN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PatrickAdams.VRSN;
@@ -374,6 +376,7 @@
 			baseConfigurationReference = 95149FEF4A690353A7D820CC /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = VRSN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PatrickAdams.VRSN;
